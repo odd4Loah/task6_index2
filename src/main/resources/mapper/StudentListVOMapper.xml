@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihoo.jnshu.dao.StudentListVOMapper">
+  <resultMap id="BaseResultMap" type="com.lihoo.jnshu.model.StudentListVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="qq_num" jdbcType="BIGINT" property="qqNum" />
+    <result column="study_type" jdbcType="VARCHAR" property="studyType" />
+    <result column="study_time" jdbcType="BIGINT" property="studyTime" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="study_id" jdbcType="VARCHAR" property="studyId" />
+    <result column="daily_link" jdbcType="VARCHAR" property="dailyLink" />
+    <result column="promise" jdbcType="VARCHAR" property="promise" />
+    <result column="teach_bro" jdbcType="VARCHAR" property="teachBro" />
+    <result column="know_us_from" jdbcType="VARCHAR" property="knowUsFrom" />
+    <result column="create_at" jdbcType="BIGINT" property="createAt" />
+    <result column="update_at" jdbcType="BIGINT" property="updateAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, username, qq_num, study_type, study_time, school, study_id, daily_link, promise, 
+    teach_bro, know_us_from, create_at, update_at
+  </sql>
+  <select id="selectByExample" parameterType="com.lihoo.jnshu.model.StudentListVOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_list
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from student_list
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lihoo.jnshu.model.StudentListVOExample">
+    delete from student_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lihoo.jnshu.model.StudentListVO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into student_list (username, qq_num, study_type, 
+      study_time, school, study_id, 
+      daily_link, promise, teach_bro, 
+      know_us_from, create_at, update_at
+      )
+    values (#{username,jdbcType=VARCHAR}, #{qqNum,jdbcType=BIGINT}, #{studyType,jdbcType=VARCHAR}, 
+      #{studyTime,jdbcType=BIGINT}, #{school,jdbcType=VARCHAR}, #{studyId,jdbcType=VARCHAR}, 
+      #{dailyLink,jdbcType=VARCHAR}, #{promise,jdbcType=VARCHAR}, #{teachBro,jdbcType=VARCHAR}, 
+      #{knowUsFrom,jdbcType=VARCHAR}, #{createAt,jdbcType=BIGINT}, #{updateAt,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lihoo.jnshu.model.StudentListVO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into student_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="qqNum != null">
+        qq_num,
+      </if>
+      <if test="studyType != null">
+        study_type,
+      </if>
+      <if test="studyTime != null">
+        study_time,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="studyId != null">
+        study_id,
+      </if>
+      <if test="dailyLink != null">
+        daily_link,
+      </if>
+      <if test="promise != null">
+        promise,
+      </if>
+      <if test="teachBro != null">
+        teach_bro,
+      </if>
+      <if test="knowUsFrom != null">
+        know_us_from,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null">
+        #{qqNum,jdbcType=BIGINT},
+      </if>
+      <if test="studyType != null">
+        #{studyType,jdbcType=VARCHAR},
+      </if>
+      <if test="studyTime != null">
+        #{studyTime,jdbcType=BIGINT},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="studyId != null">
+        #{studyId,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyLink != null">
+        #{dailyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="promise != null">
+        #{promise,jdbcType=VARCHAR},
+      </if>
+      <if test="teachBro != null">
+        #{teachBro,jdbcType=VARCHAR},
+      </if>
+      <if test="knowUsFrom != null">
+        #{knowUsFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lihoo.jnshu.model.StudentListVOExample" resultType="java.lang.Long">
+    select count(*) from student_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update student_list
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqNum != null">
+        qq_num = #{record.qqNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.studyType != null">
+        study_type = #{record.studyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studyTime != null">
+        study_time = #{record.studyTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.school != null">
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studyId != null">
+        study_id = #{record.studyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dailyLink != null">
+        daily_link = #{record.dailyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.promise != null">
+        promise = #{record.promise,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachBro != null">
+        teach_bro = #{record.teachBro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.knowUsFrom != null">
+        know_us_from = #{record.knowUsFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createAt != null">
+        create_at = #{record.createAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateAt != null">
+        update_at = #{record.updateAt,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update student_list
+    set id = #{record.id,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      qq_num = #{record.qqNum,jdbcType=BIGINT},
+      study_type = #{record.studyType,jdbcType=VARCHAR},
+      study_time = #{record.studyTime,jdbcType=BIGINT},
+      school = #{record.school,jdbcType=VARCHAR},
+      study_id = #{record.studyId,jdbcType=VARCHAR},
+      daily_link = #{record.dailyLink,jdbcType=VARCHAR},
+      promise = #{record.promise,jdbcType=VARCHAR},
+      teach_bro = #{record.teachBro,jdbcType=VARCHAR},
+      know_us_from = #{record.knowUsFrom,jdbcType=VARCHAR},
+      create_at = #{record.createAt,jdbcType=BIGINT},
+      update_at = #{record.updateAt,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lihoo.jnshu.model.StudentListVO">
+    update student_list
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null">
+        qq_num = #{qqNum,jdbcType=BIGINT},
+      </if>
+      <if test="studyType != null">
+        study_type = #{studyType,jdbcType=VARCHAR},
+      </if>
+      <if test="studyTime != null">
+        study_time = #{studyTime,jdbcType=BIGINT},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="studyId != null">
+        study_id = #{studyId,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyLink != null">
+        daily_link = #{dailyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="promise != null">
+        promise = #{promise,jdbcType=VARCHAR},
+      </if>
+      <if test="teachBro != null">
+        teach_bro = #{teachBro,jdbcType=VARCHAR},
+      </if>
+      <if test="knowUsFrom != null">
+        know_us_from = #{knowUsFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lihoo.jnshu.model.StudentListVO">
+    update student_list
+    set username = #{username,jdbcType=VARCHAR},
+      qq_num = #{qqNum,jdbcType=BIGINT},
+      study_type = #{studyType,jdbcType=VARCHAR},
+      study_time = #{studyTime,jdbcType=BIGINT},
+      school = #{school,jdbcType=VARCHAR},
+      study_id = #{studyId,jdbcType=VARCHAR},
+      daily_link = #{dailyLink,jdbcType=VARCHAR},
+      promise = #{promise,jdbcType=VARCHAR},
+      teach_bro = #{teachBro,jdbcType=VARCHAR},
+      know_us_from = #{knowUsFrom,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=BIGINT},
+      update_at = #{updateAt,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
