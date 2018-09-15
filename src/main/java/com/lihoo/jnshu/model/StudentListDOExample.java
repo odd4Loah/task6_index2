@@ -2,7 +2,7 @@ package com.lihoo.jnshu.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@SuppressWarnings("unused")
 public class StudentListDOExample {
     protected String orderByClause;
 

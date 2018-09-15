@@ -1,9 +1,13 @@
+import com.lihoo.jnshu.dao.StudentInfoDOMapper;
 import com.lihoo.jnshu.dao.StudentListDOMapper;
+import com.lihoo.jnshu.model.StudentInfoDO;
+import com.lihoo.jnshu.model.StudentInfoDOExample;
 import com.lihoo.jnshu.model.StudentListDO;
 import com.lihoo.jnshu.model.StudentListDOExample;
+
+import com.lihoo.jnshu.service.StudentInfoDOService;
 import com.lihoo.jnshu.service.StudentListDOService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import com.lihoo.jnshu.util.Log2Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,25 +28,53 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class StusListTest {
 
-    private static Logger logger = LogManager.getLogger(StusListTest.class);
-
-//    @Autowired(required = false)
-//    StudentListDOService studentListDOService;
+    @Autowired(required = false)
+    StudentListDOService studentListDOService;
 
     @Autowired
     StudentListDOMapper studentListDOMapper;
 
+    @Autowired
+    StudentInfoDOService studentInfoDOService;
+
+    @Autowired
+    StudentInfoDOMapper studentInfoDOMapper;
+
     @Test
     public void CRUDTest() {
-        logger.info("*****************************************");
         StudentListDOExample doExample = new StudentListDOExample();
-        doExample.createCriteria().andUsernameEqualTo("黄苏威");
-        List<StudentListDO> listDOS = studentListDOMapper.selectByExample(doExample);
-        System.out.println(listDOS);
+//        doExample.createCriteria().andUsernameEqualTo("安度因");
+        doExample.or().andTeachBroEqualTo("舞厅鸭Bill");
+        List<StudentListDO> listDOS = studentListDOService.selectByExample(doExample);
+        Log2Util.logger.info("-------------------------------------------------------");
         for (StudentListDO stu : listDOS) {
-            logger.info(stu);
+            Log2Util.logger.info(stu);
         }
-        logger.info("*****************************************");
-        System.out.println("*****************************************");
+        Log2Util.logger.info("-------------------------------------------------------");
     }
+
+    @Test
+    public void findAll() {
+        StudentInfoDOExample doExample = new StudentInfoDOExample();
+        doExample.or().getAllCriteria();
+        List<StudentInfoDO> lista = studentInfoDOMapper.selectByExample(doExample);
+        Log2Util.logger.info("-------------------------------------------------------");
+        for (StudentInfoDO stu : lista) {
+            Log2Util.logger.info(stu);
+        }
+        Log2Util.logger.info("-------------------------------------------------------");
+    }
+
+    @Test
+    public void findAll2() {
+        StudentInfoDOExample doExample = new StudentInfoDOExample();
+        List<StudentInfoDO> list = studentInfoDOService.selectByExample(doExample);
+        Log2Util.logger.info("-------------------------------------------------------");
+        for (StudentInfoDO stu : list) {
+            Log2Util.logger.info(stu);
+        }
+        Log2Util.logger.info("-------------------------------------------------------");
+    }
+
+
 }

@@ -4,6 +4,7 @@ import com.lihoo.jnshu.dao.StudentListDOMapper;
 import com.lihoo.jnshu.model.StudentListDO;
 import com.lihoo.jnshu.model.StudentListDOExample;
 import com.lihoo.jnshu.service.StudentListDOService;
+import com.lihoo.jnshu.util.Log2Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,51 +31,53 @@ public class StudentListDOServiceImpl implements StudentListDOService {
 
     @Override
     public int deleteByExample(StudentListDOExample example) {
-        return 0;
+        return studentListDOMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Long id) {
-        return 0;
+        return studentListDOMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insert(StudentListDO record) {
-        return 0;
+        int newStu = studentListDOMapper.insert(record);
+        Log2Util.logger.info("----");
+        return newStu;
     }
 
     @Override
     public int insertSelective(StudentListDO record) {
-        return 0;
+        return studentListDOMapper.insertSelective(record);
     }
 
     @Override
     public List<StudentListDO> selectByExample(StudentListDOExample example) {
-        return null;
+        return studentListDOMapper.selectByExample(example);
     }
 
     @Override
     public StudentListDO selectByPrimaryKey(Long id) {
-        return null;
+        return studentListDOMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int updateByExampleSelective(StudentListDO record, StudentListDOExample example) {
-        return 0;
+        return studentListDOMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(StudentListDO record, StudentListDOExample example) {
-        return 0;
+        return studentListDOMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(StudentListDO record) {
-        return 0;
+        return studentListDOMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(StudentListDO record) {
-        return 0;
+        return studentListDOMapper.updateByPrimaryKey(record);
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
  * #Description: TODO
  * #author lihoo
  * #date 2018/9/15-11:16
+ * @author lihoo
  */
 
 @Service
@@ -25,58 +26,57 @@ public class StudentInfoDOServiceImpl implements StudentInfoDOService {
 
     @Override
     public long countByExample(StudentInfoDOExample example) {
-        return 0;
+        return studentInfoDOMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(StudentInfoDOExample example) {
-        return 0;
+        return studentInfoDOMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Long id) {
-        return 0;
+        return studentInfoDOMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insert(StudentInfoDO record) {
-        return 0;
+        return studentInfoDOMapper.insert(record);
     }
 
     @Override
     public int insertSelective(StudentInfoDO record) {
-        return 0;
+        return studentInfoDOMapper.insertSelective(record);
     }
 
     @Override
     public List<StudentInfoDO> selectByExample(StudentInfoDOExample example) {
-        studentInfoDOMapper.selectByExample(example);
-
-        return null;
+        StudentInfoDOExample doExample = new StudentInfoDOExample();
+        return studentInfoDOMapper.selectByExample(doExample);
     }
 
     @Override
     public StudentInfoDO selectByPrimaryKey(Long id) {
-        return null;
+        return studentInfoDOMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int updateByExampleSelective(StudentInfoDO record, StudentInfoDOExample example) {
-        return 0;
+        return studentInfoDOMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(StudentInfoDO record, StudentInfoDOExample example) {
-        return 0;
+        return studentInfoDOMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(StudentInfoDO record) {
-        return 0;
+        return studentInfoDOMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(StudentInfoDO record) {
-        return 0;
+        return studentInfoDOMapper.updateByPrimaryKey(record);
     }
 }
